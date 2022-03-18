@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+void merge(vector<int>& v,vector<int>& v1,vector<int>& v2)
+{
+    int n1 = v1.size(), n2 = v2.size();
+    int i1 = 0, i2 = 0;
+    while (i1 < n1 && i2 < n2)
+    {
+        if (v1[i1] <= v2[i2])
+        v.push_back(v1[i1++]);
+        else
+        v.push_back(v2[i2++]);
+    }
+    while (i1 < n1)
+    v.push_back(v1[i1++]);
+    while(i2 < n2)
+    v.push_back(v2[i2++]);
+    for(int i=0;i<n1;i++)
+    cout<<v1[i]<<' ';
+    cout<<"     ";
+    for(int i=0;i<n2;i++)
+    cout<<v2[i]<<' ';
+    cout<<endl;
+}
+
+void msort(vector<int>& v)
+{
+    int n = v.size();
+    if (n <= 1) return;
+    vector<int> v1(v.begin(),v.begin()+n/2);
+    vector<int> v2(v.begin()+n/2,v.end());
+    for(int i=0;i<v1.size();i++)
+    cout<<v1[i]<<' ';
+    cout<<"     ";
+    for(int i=0;i<v2.size();i++)
+    cout<<v2[i]<<' ';
+    cout<<endl;
+    msort(v1);
+    msort(v2);
+    v.clear();
+    merge(v,v1,v2);
+}
+
+int main()
+{
+    vector<int> a = {4,7,2,9,12,21,3,-1,6,19,33};
+    for(int i=0;i<a.size();i++)
+    cout<<a[i]<<' ';
+    cout<<endl;
+    msort(a);
+    for(int i=0;i<a.size();i++)
+    cout<<a[i]<<' ';
+    return 0;
+}
